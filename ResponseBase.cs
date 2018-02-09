@@ -7,7 +7,8 @@ namespace nuclio_sdk_dotnetcore
     public class ResponseBase
     {
         [Key("body")]
-        public byte[] Body { get; set; }
+        [MessagePackFormatter(typeof(ByteStringFormatter))]
+        public string Body { get; set; }
         
         [Key("content_type")]
         public string ContentType { get; set; }
