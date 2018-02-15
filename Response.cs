@@ -24,8 +24,7 @@ namespace nuclio_sdk_dotnetcore
 
         public string Serialize()
         {
-            var bin = MessagePackSerializer.Serialize(this);
-            return MessagePackSerializer.ToJson(bin);
+            return MessagePackSerializer.ToJson(this);
         }
     }
 }
