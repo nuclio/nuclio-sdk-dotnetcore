@@ -8,7 +8,7 @@ using MessagePack.Formatters;
 namespace nuclio_sdk_dotnetcore
 {
     [MessagePackObject]
-    public abstract class EventBase
+    public class Event
     {
         [Key("body")]
         [MessagePackFormatter(typeof(ByteStringFormatter))]
@@ -48,6 +48,17 @@ namespace nuclio_sdk_dotnetcore
         [Key("trigger")]
         public Trigger Trigger { get; set; }
 
+        public static Event Deserialize(string eventString)
+        {    
+            var bin = MessagePackSerializer.FromJson(eventString);
+            return MessagePackSerializer.Deserialize<Event>(bin);
+        }
+
+        public string Serialize()
+        {
+            var bin = MessagePackSerializer.Serialize(this);
+            return MessagePackSerializer.ToJson(bin);
+        }
     }
 
     [MessagePackObject]

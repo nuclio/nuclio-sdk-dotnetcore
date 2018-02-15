@@ -4,7 +4,7 @@ using MessagePack;
 
 namespace nuclio_sdk_dotnetcore
 {
-    public class ResponseBase
+    public class Response
     {
         [Key("body")]
         [MessagePackFormatter(typeof(ByteStringFormatter))]
@@ -21,5 +21,11 @@ namespace nuclio_sdk_dotnetcore
         
         [Key("body_encoding")]
         public string BodyEncoding { get; set; }
+
+        public string Serialize()
+        {
+            var bin = MessagePackSerializer.Serialize(this);
+            return MessagePackSerializer.ToJson(bin);
+        }
     }
 }
