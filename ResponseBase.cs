@@ -20,6 +20,6 @@ namespace nuclio_sdk_dotnetcore
         public Dictionary<string, object> Headers { get; set; }
         
         [Key("body_encoding")]
-        public string BodyEncoding { get { return "base64"; } }
+        public string BodyEncoding { get; set; }
     }
 }
