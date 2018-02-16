@@ -11,7 +11,7 @@ namespace nuclio_sdk_dotnetcore
     public class Event
     {
         [Key("body")]
-        [MessagePackFormatter(typeof(ByteStringFormatter))]
+        //[MessagePackFormatter(typeof(ByteStringFormatter))]
         public string Body { get; set; }
 
         [Key("content-type")]
@@ -48,16 +48,14 @@ namespace nuclio_sdk_dotnetcore
         [Key("trigger")]
         public Trigger Trigger { get; set; }
 
-        public static Event Deserialize(string eventString)
-        {    
-            var bin = MessagePackSerializer.FromJson(eventString);
-            return MessagePackSerializer.Deserialize<Event>(bin);
-        }
-
-        public string Serialize()
+        public Event()
         {
-            return MessagePackSerializer.ToJson(this);
+            Trigger = new Trigger();
+            Headers = new Dictionary<string, object>();
+            Fields = new Dictionary<string, object>();
+            
         }
+        
     }
 
     [MessagePackObject]

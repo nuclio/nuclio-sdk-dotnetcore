@@ -4,10 +4,11 @@ using MessagePack;
 
 namespace nuclio_sdk_dotnetcore
 {
+    [MessagePackObject]
     public class Response
     {
         [Key("body")]
-        [MessagePackFormatter(typeof(ByteStringFormatter))]
+        //[MessagePackFormatter(typeof(ByteStringFormatter))]
         public string Body { get; set; }
         
         [Key("content_type")]
@@ -22,6 +23,10 @@ namespace nuclio_sdk_dotnetcore
         [Key("body_encoding")]
         public string BodyEncoding { get; set; }
 
+        public Response()
+        {
+            Headers = new Dictionary<string, object>();
+        }
         public string Serialize()
         {
             return MessagePackSerializer.ToJson(this);
