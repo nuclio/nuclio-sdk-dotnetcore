@@ -29,12 +29,12 @@ namespace nuclio_sdk_dotnetcore
         public String Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
         {
             var byteArr = MessagePackBinary.ReadBytes(bytes, offset, out readSize);
-            return Encoding.Default.GetString(byteArr);
+            return Encoding.ASCII.GetString(byteArr);
         }
 
         public int Serialize(ref byte[] bytes, int offset, String value, IFormatterResolver formatterResolver)
         {
-            var byteArr = Encoding.Default.GetBytes(value);
+            var byteArr = Encoding.ASCII.GetBytes(value);
             return MessagePackBinary.WriteBytes(ref bytes, offset, byteArr);
         }
     }
