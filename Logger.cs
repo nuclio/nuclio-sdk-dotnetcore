@@ -10,10 +10,10 @@ namespace nuclio_sdk_dotnetcore
 
         public enum LogLevel
         {
-            error,
-            warning,
-            info,
-            debug
+            Error,
+            Warning,
+            Info,
+            Debug
         }
 
 
