@@ -11,31 +11,32 @@ namespace nuclio_sdk_dotnetcore
     {
         public DateTime Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
         {
-            var unixTimestamp = MessagePackBinary.ReadInt32(bytes, offset, out readSize);
+            var unixTimestamp = MessagePackBinary.ReadInt64(bytes, offset, out readSize);
             var unixDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            unixDateTime = unixDateTime.AddSeconds(unixTimestamp).ToLocalTime();
+            unixDateTime = unixDateTime.AddSeconds(unixTimestamp).ToUniversalTime();
             return unixDateTime;
         }
 
         public int Serialize(ref byte[] bytes, int offset, DateTime value, IFormatterResolver formatterResolver)
         {
-            var unixTimestamp = (Int32)(value.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            return MessagePackBinary.WriteInt32(ref bytes, offset, unixTimestamp);
+            var unixTimestamp = (Int64)(value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))).TotalSeconds;
+            return MessagePackBinary.WriteInt64(ref bytes, offset, unixTimestamp);
         }
     }
 
-    public class ByteStringFormatter : IMessagePackFormatter<String>
+    public class Base64StringFormatter : IMessagePackFormatter<String>
     {
         public String Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
         {
-            var byteArr = MessagePackBinary.ReadBytes(bytes, offset, out readSize);
-            return Encoding.ASCII.GetString(byteArr);
+
+            var encodedString = MessagePackBinary.ReadString(bytes, offset, out readSize);
+            return Encoding.ASCII.GetString(System.Convert.FromBase64String(encodedString));
         }
 
         public int Serialize(ref byte[] bytes, int offset, String value, IFormatterResolver formatterResolver)
         {
             var byteArr = Encoding.ASCII.GetBytes(value);
-            return MessagePackBinary.WriteBytes(ref bytes, offset, byteArr);
+            return MessagePackBinary.WriteString(ref bytes, offset, System.Convert.ToBase64String(byteArr));
         }
     }
 }
