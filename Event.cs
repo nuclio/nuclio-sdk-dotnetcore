@@ -11,7 +11,7 @@ namespace nuclio_sdk_dotnetcore
     public class Event
     {
         [Key("body")]
-        //[MessagePackFormatter(typeof(ByteStringFormatter))]
+        [MessagePackFormatter(typeof(Base64StringFormatter))]
         public string Body { get; set; }
 
         [Key("content-type")]
