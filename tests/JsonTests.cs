@@ -45,7 +45,7 @@ namespace tests
         public void SerializeEvent()
         {
             var eventsString = "{\"body\":\"testbody\",\"content-type\":\"plain/text\",\"headers\":{\"testkey\":\"testvalue\"},\"fields\":{\"testkey\":\"testvalue\"},\"size\":9223372036854775807,\"id\":\"123\",\"method\":\"testmethod\",\"path\":\"testpath\",\"url\":\"http://localhost\",\"version\":1234,\"timestamp\":1518764461,\"trigger\":{\"class\":\"testclass\",\"kind\":\"testkind\"}}";
-            
+
             var eve = new Event();
             eve.Body = "testbody";
             eve.ContentType = "plain/text";
@@ -64,14 +64,13 @@ namespace tests
             var serialized = Helpers<Event>.Serialize(eve);
             Assert.IsFalse(string.IsNullOrEmpty(serialized));
             Assert.AreEqual(serialized, eventsString);
-
         }
 
-         [TestMethod]
+        [TestMethod]
         public void DeserializeEvent()
         {
             var eventsString = "{\"body\":\"testbody\",\"content-type\":\"plain/text\",\"headers\":{\"testkey\":\"testvalue\"},\"fields\":{\"testkey\":\"testvalue\"},\"size\":9223372036854775807,\"id\":\"123\",\"method\":\"testmethod\",\"path\":\"testpath\",\"url\":\"http://localhost\",\"version\":1234,\"timestamp\":1518764461,\"trigger\":{\"class\":\"testclass\",\"kind\":\"testkind\"}}";
-            
+
             var eve = new Event();
             eve.Body = "testbody";
             eve.ContentType = "plain/text";
@@ -90,7 +89,6 @@ namespace tests
             var deserialized = Helpers<Event>.Deserialize(eventsString);
             Assert.IsNotNull(deserialized);
             Assert.ReferenceEquals(deserialized, eve);
-
         }
     }
 }

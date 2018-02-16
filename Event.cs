@@ -53,9 +53,8 @@ namespace nuclio_sdk_dotnetcore
             Trigger = new Trigger();
             Headers = new Dictionary<string, object>();
             Fields = new Dictionary<string, object>();
-            
         }
-        
+
     }
 
     [MessagePackObject]
