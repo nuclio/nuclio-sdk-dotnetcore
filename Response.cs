@@ -25,7 +25,8 @@ namespace nuclio_sdk_dotnetcore
 
         public Response()
         {
-            Headers = new Dictionary<string, object>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Headers = new Dictionary<string, object>(comparer);
         }
 
     }
