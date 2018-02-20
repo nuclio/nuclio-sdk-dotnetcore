@@ -50,8 +50,9 @@ namespace nuclio_sdk_dotnetcore
 
         public Event()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
             Trigger = new Trigger();
-            Headers = new Dictionary<string, object>();
+            Headers = new Dictionary<string, object>(comparer);
             Fields = new Dictionary<string, object>();
         }
 
