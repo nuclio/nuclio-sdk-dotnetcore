@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using NetJSON;
 
 namespace nuclio_sdk_dotnetcore
 {
-    [MessagePackObject]
     public class Logger
     {
-
         public enum LogLevel
         {
             Error,
@@ -16,19 +14,18 @@ namespace nuclio_sdk_dotnetcore
             Debug
         }
 
-
         public event EventHandler LogEvent;
 
-        [Key("level")]
+        [NetJSONProperty("level")]
         public string Level { get; set; }
 
-        [Key("message")]
+        [NetJSONProperty("message")]
         public string Message { get; set; }
 
-        [Key("datetime")]
+        [NetJSONProperty("datetime")]
         public string DateTime { get; set; }
 
-        [Key("with")]
+        [NetJSONProperty("with")]
         Dictionary<string, object> With { get; set; }
 
         public Logger()
@@ -39,7 +36,7 @@ namespace nuclio_sdk_dotnetcore
 
         public void Log(LogLevel level, string message, Dictionary<string, object> with = null)
         {
-            Level = level.ToString();
+            Level = level.ToString().ToLower();
             Message = message;
             if (with == null)
                 with = new Dictionary<string, object>();

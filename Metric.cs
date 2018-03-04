@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using NetJSON;
 
 namespace nuclio_sdk_dotnetcore
 {
-    [MessagePackObject]
     public class Metric
     {
-        [Key("duration")]
+        [NetJSONProperty("duration")]
         public long Duration { get; set; }
 
 

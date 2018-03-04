@@ -8,7 +8,6 @@
   <DefaultItemExcludes>tests/**;$(DefaultItemExcludes)</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="1.7.3.2" />
-    <PackageReference Include="MessagePack.ReactiveProperty" Version="1.7.3.2" />
+    <PackageReference Include="NetJSON" Version="1.2.2"/>
   </ItemGroup>
 </Project>
