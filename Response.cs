@@ -1,26 +1,24 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using NetJSON;
 
 namespace nuclio_sdk_dotnetcore
 {
-    [MessagePackObject]
     public class Response
     {
-        [Key("body")]
-        //[MessagePackFormatter(typeof(ByteStringFormatter))]
+        [NetJSONProperty("body")]
         public string Body { get; set; }
 
-        [Key("content_type")]
+        [NetJSONProperty("content_type")]
         public string ContentType { get; set; }
-
-        [Key("status_code")]
+        
+        [NetJSONProperty("status_code")]
         public int StatusCode { get; set; }
 
-        [Key("headers")]
+        [NetJSONProperty("headers")]
         public Dictionary<string, object> Headers { get; set; }
 
-        [Key("body_encoding")]
+        [NetJSONProperty("body_encoding")]
         public string BodyEncoding { get; set; }
 
         public Response()

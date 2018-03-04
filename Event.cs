@@ -2,50 +2,46 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-using MessagePack;
-using MessagePack.Formatters;
-
+using NetJSON;
 namespace nuclio_sdk_dotnetcore
 {
-    [MessagePackObject]
     public class Event
     {
-        [Key("body")]
-        [MessagePackFormatter(typeof(Base64StringFormatter))]
-        public string Body { get; set; }
 
-        [Key("content-type")]
+        [NetJSONProperty("body")]
+        public byte [] Body { get; set; }
+
+        [NetJSONProperty("content-type")]
         public string ContentType { get; set; }
 
-        [Key("headers")]
+        [NetJSONProperty("headers")]
         public Dictionary<string, object> Headers { get; set; }
 
-        [Key("fields")]
+        [NetJSONProperty("fields")]
         public Dictionary<string, object> Fields { get; set; }
 
-        [Key("size")]
+        [NetJSONProperty("size")]
         public long Size { get; set; }
 
-        [Key("id")]
+        [NetJSONProperty("id")]
         public string Id { get; set; }
 
-        [Key("method")]
+        [NetJSONProperty("method")]
         public string Method { get; set; }
 
-        [Key("path")]
+        [NetJSONProperty("path")]
         public string Path { get; set; }
 
-        [Key("url")]
+        [NetJSONProperty("url")]
         public string Url { get; set; }
 
-        [Key("version")]
+        [NetJSONProperty("version")]
         public long Version { get; set; }
 
-        [Key("timestamp")]
-        [MessagePackFormatter(typeof(DateTimeUnixFormatter))]
+        [NetJSONProperty("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [Key("trigger")]
+        [NetJSONProperty("trigger")]
         public Trigger Trigger { get; set; }
 
         public Event()
@@ -55,16 +51,22 @@ namespace nuclio_sdk_dotnetcore
             Headers = new Dictionary<string, object>(comparer);
             Fields = new Dictionary<string, object>();
         }
-
+        public string GetBody()
+        {
+            return StringHelpers.DecodeString(this.Body);
+        }
+        public void SetBody(string body)
+        {
+            this.Body = StringHelpers.EncodeString(body);
+        }
     }
 
-    [MessagePackObject]
     public class Trigger
     {
-        [Key("class")]
+        [NetJSONProperty("class")]
         public string Class { get; set; }
-
-        [Key("kind")]
+        
+        [NetJSONProperty("kind")]
         public string Kind { get; set; }
     }
 }
