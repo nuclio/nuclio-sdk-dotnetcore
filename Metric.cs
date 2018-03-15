@@ -21,7 +21,7 @@ namespace nuclio_sdk_dotnetcore
     public class Metric
     {
         [NetJSONProperty("duration")]
-        public long Duration { get; set; }
+        public double Duration { get; set; }
 
 
     }
