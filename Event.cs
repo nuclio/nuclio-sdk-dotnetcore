@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using NetJSON;
 
-namespace nuclio_sdk_dotnetcore
+namespace Nuclio.Sdk
 {
     public class Event
     {

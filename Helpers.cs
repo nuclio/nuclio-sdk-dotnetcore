@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 using System.Text;
 
 
-namespace nuclio_sdk_dotnetcore
+namespace Nuclio.Sdk
 {
     internal static class StringHelpers
     {

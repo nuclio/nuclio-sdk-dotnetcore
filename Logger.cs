@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using NetJSON;
 
-namespace nuclio_sdk_dotnetcore
+namespace Nuclio.Sdk
 {
     public class Logger
     {
