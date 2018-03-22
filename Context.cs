@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-namespace nuclio_sdk_dotnetcore
+namespace Nuclio.Sdk
 {
     public class Context
     {
@@ -22,7 +22,6 @@ namespace nuclio_sdk_dotnetcore
         public Context()
         {
             Logger = new Logger();
-
         }
     }
 }

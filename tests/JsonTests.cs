@@ -1,6 +1,6 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using nuclio_sdk_dotnetcore;
+using Nuclio.Sdk;
 
 namespace tests
 {
