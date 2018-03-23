@@ -16,47 +16,49 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-using NetJSON;
+using Utf8Json;
+using Utf8Json.Formatters;
 
 namespace Nuclio.Sdk
 {
     public class Event
     {
 
-        [NetJSONProperty("body")]
-        public byte [] Body { get; set; }
+        [DataMember(Name = "body")]
+        public byte[] Body { get; set; }
 
-        [NetJSONProperty("content-type")]
+        [DataMember(Name = "content-type")]
         public string ContentType { get; set; }
 
-        [NetJSONProperty("headers")]
+        [DataMember(Name = "headers")]
         public Dictionary<string, object> Headers { get; set; }
 
-        [NetJSONProperty("fields")]
+        [DataMember(Name = "fields")]
         public Dictionary<string, object> Fields { get; set; }
 
-        [NetJSONProperty("size")]
+        [DataMember(Name = "size")]
         public long Size { get; set; }
 
-        [NetJSONProperty("id")]
+        [DataMember(Name = "id")]
         public string Id { get; set; }
 
-        [NetJSONProperty("method")]
+        [DataMember(Name = "method")]
         public string Method { get; set; }
 
-        [NetJSONProperty("path")]
+        [DataMember(Name = "path")]
         public string Path { get; set; }
 
-        [NetJSONProperty("url")]
+        [DataMember(Name = "url")]
         public string Url { get; set; }
 
-        [NetJSONProperty("version")]
+        [DataMember(Name = "version")]
         public long Version { get; set; }
 
-        [NetJSONProperty("timestamp")]
+        [DataMember(Name = "timestamp")]
+        [JsonFormatter(typeof(UnixTimestampInt64DateTimeFormatter))]
         public DateTime Timestamp { get; set; }
 
-        [NetJSONProperty("trigger")]
+        [DataMember(Name = "trigger")]
         public Trigger Trigger { get; set; }
 
         public Event()
@@ -68,20 +70,20 @@ namespace Nuclio.Sdk
         }
         public string GetBody()
         {
-            return StringHelpers.DecodeString(this.Body);
+            return Encoding.UTF8.GetString(this.Body);
         }
         public void SetBody(string body)
         {
-            this.Body = StringHelpers.EncodeString(body);
+            this.Body = Encoding.UTF8.GetBytes(body);
         }
     }
 
     public class Trigger
     {
-        [NetJSONProperty("class")]
+        [DataMember(Name = "class")]
         public string Class { get; set; }
-        
-        [NetJSONProperty("kind")]
+
+        [DataMember(Name = "kind")]
         public string Kind { get; set; }
     }
 }
