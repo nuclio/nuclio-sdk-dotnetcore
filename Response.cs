@@ -14,25 +14,25 @@
 
 using System;
 using System.Collections.Generic;
-using NetJSON;
+using System.Runtime.Serialization;
 
 namespace Nuclio.Sdk
 {
     public class Response
     {
-        [NetJSONProperty("body")]
+        [DataMember(Name = "body")]
         public string Body { get; set; }
 
-        [NetJSONProperty("content_type")]
+        [DataMember(Name = "content_type")]
         public string ContentType { get; set; }
-        
-        [NetJSONProperty("status_code")]
+
+        [DataMember(Name = "status_code")]
         public int StatusCode { get; set; }
 
-        [NetJSONProperty("headers")]
+        [DataMember(Name = "headers")]
         public Dictionary<string, object> Headers { get; set; }
 
-        [NetJSONProperty("body_encoding")]
+        [DataMember(Name = "body_encoding")]
         public string BodyEncoding { get; set; }
 
         public Response()

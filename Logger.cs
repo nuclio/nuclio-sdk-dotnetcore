@@ -14,7 +14,7 @@
 
 using System;
 using System.Collections.Generic;
-using NetJSON;
+using System.Runtime.Serialization;
 
 namespace Nuclio.Sdk
 {
@@ -22,16 +22,16 @@ namespace Nuclio.Sdk
     {
         public event EventHandler LogEvent;
 
-        [NetJSONProperty("level")]
+        [DataMember(Name = "level")]
         public string Level { get; set; }
 
-        [NetJSONProperty("message")]
+        [DataMember(Name = "message")]
         public string Message { get; set; }
 
-        [NetJSONProperty("datetime")]
+        [DataMember(Name = "datetime")]
         public string DateTime { get; set; }
 
-        [NetJSONProperty("with")]
+        [DataMember(Name = "with")]
         public Dictionary<string, object> With { get; set; }
 
         ///<summary>
@@ -129,7 +129,7 @@ namespace Nuclio.Sdk
             Info,
             Debug
         }
-        
+
         private Dictionary<string, object> EncodeWith(object[] with)
         {
             var withMap = new Dictionary<string, object>();
