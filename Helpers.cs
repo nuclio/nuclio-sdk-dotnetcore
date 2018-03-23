@@ -16,50 +16,37 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-
+using Utf8Json;
 
 namespace Nuclio.Sdk
 {
-    internal static class StringHelpers
-    {
-        internal static string DecodeString(byte[] value)
-        {
-            var decodedString = Encoding.ASCII.GetString(value);
-            return decodedString;
-        }
-        internal static byte[] EncodeString(string value)
-        {
-            var data = Encoding.ASCII.GetBytes(value);
-            return data;
-        }
-    }
     public static class NuclioSerializationHelpers<T>
     {
-        private static NetJSON.NetJSONSettings _settings;
-        static NuclioSerializationHelpers()
-        {
-            _settings = GetJsonSettings();
-        }
         public static T Deserialize(string str)
         {
-            return NetJSON.NetJSON.Deserialize<T>(str, _settings);
+            return Utf8Json.JsonSerializer.Deserialize<T>(str);
         }
 
         public static string Serialize(T obj)
         {
-            return NetJSON.NetJSON.Serialize<T>(obj, _settings);
+            return Utf8Json.JsonSerializer.ToJsonString(obj);
+        }
+    }
+
+    public sealed class UnixTimestampInt64DateTimeFormatter : IJsonFormatter<DateTime>
+    {
+        static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        public void Serialize(ref JsonWriter writer, DateTime value, IJsonFormatterResolver formatterResolver)
+        {
+            var ticks = (long)(value.ToUniversalTime() - UnixEpoch).TotalSeconds;
+            writer.WriteInt64(ticks);
         }
 
-        private static NetJSON.NetJSONSettings GetJsonSettings()
+        public DateTime Deserialize(ref JsonReader reader, IJsonFormatterResolver formatterResolver)
         {
-            var settings = new NetJSON.NetJSONSettings();
-            settings.CaseSensitive = false;
-            settings.CamelCase = false;
-            settings._caseComparison = StringComparison.InvariantCultureIgnoreCase;
-            settings.DateFormat = NetJSON.NetJSONDateFormat.EpochTime;
-            settings.TimeZoneFormat = NetJSON.NetJSONTimeZoneFormat.Utc;
-            settings.UseEnumString = true;
-            return settings;
+            var ticks = reader.ReadInt64();
+            return UnixEpoch.AddSeconds(ticks);
         }
     }
 }

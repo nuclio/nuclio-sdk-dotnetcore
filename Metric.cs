@@ -14,13 +14,13 @@
 
 using System;
 using System.Collections.Generic;
-using NetJSON;
+using System.Runtime.Serialization;
 
 namespace Nuclio.Sdk
 {
     public class Metric
     {
-        [NetJSONProperty("duration")]
+        [DataMember(Name = "duration")]
         public double Duration { get; set; }
 
 
