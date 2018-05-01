@@ -85,7 +85,7 @@ namespace tests
             eve.Trigger.Class = "testclass";
             eve.Trigger.Kind = "testkind";
             eve.Url = "http://localhost";
-            eve.Version = 1234;
+            eve.Version = "1234";
 
             var deserialized = NuclioSerializationHelpers<Event>.Deserialize(eventsString);
             Assert.IsNotNull(deserialized);
