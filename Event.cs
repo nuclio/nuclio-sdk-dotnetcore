@@ -52,7 +52,13 @@ namespace Nuclio.Sdk
         public string Url { get; set; }
 
         [DataMember(Name = "version")]
-        public long Version { get; set; }
+        public string Version { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "typeVersion")]
+        public string TypeVersion { get; set; }
 
         [DataMember(Name = "timestamp")]
         [JsonFormatter(typeof(UnixTimestampInt64DateTimeFormatter))]
