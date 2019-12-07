@@ -102,7 +102,7 @@ namespace tests
             eve.Headers.Add("testkey", "testvalue");
             eve.Fields.Add("testkey", "testvalue");
             eve.Id = "123";
-			eve.Version = "0";
+            eve.Version = "0";
 
             var serialized = NuclioSerializationHelpers<Event>.Serialize(eve);
             Assert.IsFalse(string.IsNullOrEmpty(serialized));
@@ -120,7 +120,7 @@ namespace tests
             eve.Headers.Add("testkey", "testvalue");
             eve.Fields.Add("testkey", "testvalue");
             eve.Id = "123";
-			eve.Version = "0";
+            eve.Version = "0";
             
             var deserialized = NuclioSerializationHelpers<Event>.Deserialize(eventsString);
             Assert.IsNotNull(deserialized);
