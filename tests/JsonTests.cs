@@ -10,6 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nuclio.Sdk;
@@ -58,7 +59,7 @@ namespace tests
         public void SerializeEvent()
         {
             var eventsString = "{\"body\":\"eyJrZXkxIjoidmFsdWUxIiwgImtleTIiOiJ2YWx1ZTIifQ==\",\"content-type\":\"plain/text\",\"headers\":{\"testkey\":\"testvalue\"},\"fields\":{\"testkey\":\"testvalue\"},\"size\":9223372036854775807,\"id\":\"123\",\"method\":\"testmethod\",\"path\":\"testpath\",\"url\":\"http://localhost\",\"version\":\"1234\",\"type\":\"snowman\",\"typeVersion\":\"0.1.2\",\"timestamp\":1518771661,\"trigger\":{\"class\":\"testclass\",\"kind\":\"testkind\"}}";
-            
+
             var eve = new Event();
             eve.SetBody("{\"key1\":\"value1\", \"key2\":\"value2\"}");
             eve.ContentType = "plain/text";
@@ -108,10 +109,10 @@ namespace tests
             deserialized.GetBody().Should().BeEquivalentTo(bodyValue);
             deserialized.Should().BeEquivalentTo(eve);
         }
-         [TestMethod]
+        [TestMethod]
         public void SerializeMissingPropertiesEvent()
         {
-            var eventsString = "{\"body\":\"eyJrZXkxIjoidmFsdWUxIiwgImtleTIiOiJ2YWx1ZTIifQ==\",\"content-type\":\"plain/text\",\"headers\":{\"testkey\":\"testvalue\"},\"fields\":{\"testkey\":\"testvalue\"},\"size\":0,\"id\":\"123\",\"method\":null,\"path\":null,\"url\":null,\"version\":null,\"type\":null,\"typeVersion\":null,\"timestamp\":-62135578800,\"trigger\":{\"class\":null,\"kind\":null}}";
+            var eventsString = "{\"body\":\"eyJrZXkxIjoidmFsdWUxIiwgImtleTIiOiJ2YWx1ZTIifQ==\",\"content-type\":\"plain/text\",\"headers\":{\"testkey\":\"testvalue\"},\"fields\":{\"testkey\":\"testvalue\"},\"size\":0,\"id\":\"123\",\"method\":null,\"path\":null,\"url\":null,\"version\":null,\"type\":null,\"typeVersion\":null,\"timestamp\":1577836800,\"trigger\":{\"class\":null,\"kind\":null}}";
 
             var eve = new Event();
             eve.SetBody("{\"key1\":\"value1\", \"key2\":\"value2\"}");
@@ -119,6 +120,7 @@ namespace tests
             eve.Headers.Add("testkey", "testvalue");
             eve.Fields.Add("testkey", "testvalue");
             eve.Id = "123";
+            eve.Timestamp = new System.DateTime(2020, 01, 01, 00, 00, 00, System.DateTimeKind.Utc);
 
             var serialized = NuclioSerializationHelpers<Event>.Serialize(eve);
             Assert.IsFalse(string.IsNullOrEmpty(serialized));
@@ -136,7 +138,7 @@ namespace tests
             eve.Headers.Add("testkey", "testvalue");
             eve.Fields.Add("testkey", "testvalue");
             eve.Id = "123";
-            
+
             var deserialized = NuclioSerializationHelpers<Event>.Deserialize(eventsString);
             Assert.IsNotNull(deserialized);
             deserialized.GetBody().Should().BeEquivalentTo(bodyValue);
