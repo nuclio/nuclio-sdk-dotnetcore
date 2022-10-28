@@ -12,12 +12,19 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
+
+
 namespace Nuclio.Sdk
 {
     public class Context
     {
+        public string Name { get; set; }
+
         public Logger Logger { get; set; }
 
+        public bool IsInitialized { get; set; }
+
+        public System.Collections.Generic.Dictionary<string, object> UserData { get; set; }
 
         public Context()
         {
