@@ -31,13 +31,3 @@ lint: build-test-image
 .PHONY: build-test-image
 build-test-image:
 	@docker build -f tests/Dockerfile -t nuclio-test .
-
-.PHONY: bump-dependencies
-bump-dependencies:
-	@echo "🔄 Ensuring dotnet-outdated is installed..."
-	dotnet tool restore || dotnet tool install --global dotnet-outdated-tool
-	@echo "📦 Bumping root-level dependencies..."
-	dotnet outdated --upgrade
-	@echo "🧪 Bumping test project dependencies..."
-	cd tests && dotnet outdated --upgrade
-
